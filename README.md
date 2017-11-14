@@ -12,6 +12,13 @@ Following this tutorial https://semaphoreci.com/community/tutorials/getting-star
 
 WIP: up to Other Assertions We Can Make on Mock
 
+Setup
+
+```
+python3 -m virtualenv mocking
+source mocking/bin/activate
+```
+
 To run tests
 ```
 python -m unittest
