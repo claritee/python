@@ -1,9 +1,10 @@
-import unittest
-import mock
 from unittest import TestCase
-from mock import patch
+from main import Calculator
 
 class TestCalculator(TestCase):
-    @patch('main.Calculator.sum', return_value=9)
-    def test_sum(self, sum):
-        self.assertEqual(sum(2,3), 9)
+    def setUp(self):
+        self.calc = Calculator()
+
+    def test_sum(self):
+        answer = self.calc.sum(2, 4)
+        self.assertEqual(answer, 6)
