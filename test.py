@@ -3,7 +3,25 @@ import main
 from unittest import TestCase
 from unittest.mock import patch, Mock
 
+# Part 1 & 2 & 5 ----------------------------------------
 
+def mock_sum(a, b):
+    # mock sum function without the long running time.sleep
+    return a + b
+
+class TestCalculator(TestCase):
+    # (1) Mocking return value to hardcoded value
+    # @patch('main.Calculator.sum', return_value=9)
+    # def test_sum(self, sum):
+    #     self.assertEqual(sum(2,3), 9)
+
+    # (2) using mocked function
+    @patch('main.Calculator.sum', side_effect=mock_sum)
+    def test_sum(self, sum):
+        self.assertEqual(sum(2,3), 5)
+        self.assertEqual(sum(7,3), 10)
+
+# Part 3 & 4 ----------------------------------------
 class TestBlog(TestCase):
     @patch('main.Blog')
     def test_blog_posts(self, MockBlog):
@@ -25,7 +43,7 @@ class TestBlog(TestCase):
         #part 4
         # Additional assertions
         assert MockBlog is main.Blog # The mock is equivalent to the original
-        
+
         assert MockBlog.called # The mock wasP called
 
         blog.posts.assert_called_with() # We called the posts method with no arguments
@@ -38,11 +56,3 @@ class TestBlog(TestCase):
 
         blog.posts.assert_not_called() # After resetting, posts has not been called.
 
-# Part 1 & 2 ----------------------------------------
-# from unittest import TestCase
-# from unittest.mock import patch
-
-# class TestCalculator(TestCase):
-#     @patch('main.Calculator.sum', return_value=9)
-#     def test_sum(self, sum):
-#         self.assertEqual(sum(2,3), 9)
